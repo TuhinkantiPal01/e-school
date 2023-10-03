@@ -2,13 +2,13 @@ import { Card, CardHeader, CardBody, Typography, Avatar, Rating } from "@materia
 
 const PopularTeachers = () => {
   return (
-    <section className="mt-52 mb-24 max-h-screen">
+    <section className="mt-12 mb-24 ">
       <div className="max-w-7xl mx-auto p-7">
         <h6 className="text-2xl text-center text-primary font-semibold">Whats New</h6>
         <h6 className="text-5xl text-center font-bold mt-4">Popular Teachers</h6>
       </div>
 
-      <div className="mt-12">
+      <div className="mt-8">
         <div className="flex justify-between items-center gap-x-14">
           <Card color="transparent" shadow={false} className="w-full ">
             <CardHeader

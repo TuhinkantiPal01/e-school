@@ -1,10 +1,29 @@
-import { Navbar, MobileNav, Typography, Button, IconButton } from "@material-tailwind/react";
-import { useEffect, useState } from "react";
+import {
+  Navbar,
+  MobileNav,
+  Typography,
+  Button,
+  IconButton,
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Avatar,
+} from "@material-tailwind/react";
+import { useContext, useEffect, useState } from "react";
 import logo from "/logo.png";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Nav = () => {
   const [openNav, setOpenNav] = useState(false);
+
+  const { user , logOut } = useContext(AuthContext);
+  console.log(user);
+
+  const handleLogOut = () => {
+    logOut();
+  };
 
   useEffect(() => {
     window.addEventListener("resize", () => window.innerWidth >= 960 && setOpenNav(false));
@@ -36,10 +55,39 @@ const Nav = () => {
             <img src={logo} alt="" className="h-12" />
           </div>
           <div className="hidden lg:block">{navList}</div>
-
-          <Button color="blue" size="lg" className="rounded-none">
-            Login
-          </Button>
+          {user ? (
+            <Menu
+              animate={{
+                mount: { y: 0 },
+                unmount: { y: 25 },
+              }}
+              placement="bottom-end"
+            >
+              <MenuHandler>
+                <Avatar
+                  src={user?.photoURL}
+                  alt="avatar"
+                  size="sm"
+                  className="hover:cursor-pointer"
+                />
+              </MenuHandler>
+              <MenuList>
+                <MenuItem>Menu Item 1</MenuItem>
+                <MenuItem>Menu Item 2</MenuItem>
+                <MenuItem>
+                  <Button onClick={handleLogOut} variant="filled" color="red">
+                    Logout
+                  </Button>
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <Link to="/login">
+              <Button color="blue" size="lg" className="rounded-none">
+                Login
+              </Button>
+            </Link>
+          )}
 
           <IconButton
             variant="text"
@@ -77,6 +125,21 @@ const Nav = () => {
             <Button color="blue" size="lg" className="w-full rounded-none">
               Login
             </Button>
+            <Menu
+              animate={{
+                mount: { y: 0 },
+                unmount: { y: 25 },
+              }}
+            >
+              <MenuHandler>
+                <Button>Open Menu</Button>
+              </MenuHandler>
+              <MenuList>
+                <MenuItem>Menu Item 1</MenuItem>
+                <MenuItem>Menu Item 2</MenuItem>
+                <MenuItem>Menu Item 3</MenuItem>
+              </MenuList>
+            </Menu>
           </div>
         </MobileNav>
       </Navbar>
